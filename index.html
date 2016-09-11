@@ -105,14 +105,14 @@ function build_graph(json) {
     nodes.push({ id: left_var, group: 1 })
     for (right_var of json.latent_variables[left_var]) {
       nodes.push({ id: right_var.name, group: 2 })
-      links.push({ source: left_var, target: right_var.name, value: right_var['Estimate'] })
+      links.push({ source: left_var, target: right_var.name, value: right_var['Estimate'], p: right_var['P(>|z|)'] })
     }
   }
 
   // 回帰の式からリンクを作成
   for (var left_var in json.regressions) {
     for (right_var of json.regressions[left_var]) {
-      links.push({ source: left_var, target: right_var.name, value: right_var['Estimate'] })
+      links.push({ source: left_var, target: right_var.name, value: right_var['Estimate'], p: right_var['P(>|z|)'] })
     }
   }
 
@@ -155,6 +155,7 @@ function graph(json) {
     .enter().append('line')
       .attr('marker-end', 'url(#arrowhead)')
       .attr('stroke-width', function(d) { return Math.sqrt(d.value * 10) })
+      .attr('stroke-opacity', function(d) { return 1 - d.p })
 
   var node = svg.selectAll('.node')
       .data(graph.nodes)
