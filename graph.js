@@ -23,6 +23,8 @@ function build_graph(json) {
   }
 }
 
+rectSize = 10
+
 function graph(json) {
   var graph = build_graph(json)
 
@@ -66,6 +68,13 @@ function graph(json) {
   node.append('circle')
       .attr('r', 6)
       .attr('fill', function(d) { return color(d.group) })
+      .style('display', function(d) { return d.group == 1 ? null : 'none' })
+
+  node.append('rect')
+      .attr('width', rectSize)
+      .attr('height', rectSize)
+      .attr('fill', function(d) { return color(d.group) })
+      .style('display', function(d) { return d.group == 2 ? null : 'none' })
 
   node.append('text')
       .attr('dx', 12)
@@ -79,12 +88,21 @@ function graph(json) {
   simulation.force('link')
       .links(graph.links)
 
+  var x, y
   function ticked() {
     link.attr('x1', function(d) { return d.source.x })
         .attr('y1', function(d) { return d.source.y })
         .attr('x2', function(d) { return d.target.x })
         .attr('y2', function(d) { return d.target.y })
 
-    node.attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')' })
+    node.attr('transform', function(d) {
+      if (d.group == 1) {
+        x = d.x
+        y = d.y
+      } else {
+        x = d.x - rectSize / 2
+        y = d.y - rectSize / 2
+      }
+      return 'translate(' + x + ',' + y + ')' })
   }
 }
