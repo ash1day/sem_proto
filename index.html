@@ -33,9 +33,16 @@ text.axis-worktime {
   fill: #000;
 }
 
+div {
+  float: left;
+  margin: 0;
+  width: 50%;
+  display: inline-block;
+}
+
 </style>
-<svg width="960" height="600"></svg>
-<div id="myDiv"></div>
+<div id="graph"><svg width="500" height="600"></svg></div>
+<div id="covariances_matrix"></div>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script>
@@ -241,11 +248,11 @@ function heatmap(data){
       ticksuffix: ' ',
       autosize: false
     },
-    width: 500,
-    height: 500
+    width: 400,
+    height: 400
   }
 
-  Plotly.newPlot('myDiv', data, layout);
+  Plotly.newPlot('covariances_matrix', data, layout);
 }
 
 </script>
