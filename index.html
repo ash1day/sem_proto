@@ -183,12 +183,12 @@ function graph(json) {
 function covariances_matrix(json) {
   raw_matrix = {}
 
-  names = json.obs_names.sort()
+  names = json.names.sort()
   len   = names.length
 
-  for (var row_name of json.obs_names) {
+  for (var row_name of json.names) {
     raw_matrix[row_name] = {}
-    for (var column_name of json.obs_names) {
+    for (var column_name of json.names) {
       raw_matrix[row_name][column_name] = 0 // 0でいいのか?
     }
 
