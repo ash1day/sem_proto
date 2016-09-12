@@ -48,7 +48,7 @@ function heatmap(data, id){
   ]
 
   var layout = {
-    title: 'Covariances matrix',
+    title: id.replace('_',' '),
     annotations: [],
     xaxis: {
       ticks: '',

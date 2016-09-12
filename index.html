@@ -43,6 +43,7 @@ div {
 </style>
 <div id="graph"><svg width="500" height="600"></svg></div>
 <div id="covariances_matrix"></div>
+<div id="total_effects"></div>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="graph.js"></script>
@@ -95,7 +96,7 @@ fetch('http://localhost:4567/sem', {
   return response.json()
 }).then(function(json) {
   heatmap(covariances_matrix(json), 'covariances_matrix')
-
+  heatmap({ names: json.names, matrix: json.total_effects }, 'total_effects')
   graph(json)
 })
 </script>
